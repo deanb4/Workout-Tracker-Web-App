@@ -9,13 +9,6 @@ A web application built with Django to track workouts, exercises, and user progr
 - **Progress Tracking**: View and manage the progress for each workout over time.
 - **Profile Management**: Users can update their profiles, including password reset functionality.
 
-## Technologies Used
-
-- **Django**: A high-level Python web framework for rapid development.
-- **SQLite**: Lightweight database used for storing workout and user data.
-- **HTML, CSS, JavaScript**: For front-end development and design.
-- **Chart.js**: For visualizing workout progress and statistics.
-
 ## Installation
 
 ### Prerequisites
