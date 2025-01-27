@@ -1,0 +1,13 @@
+{% extends 'workouts/base.html' %}
+{%  block content %}
+<div class="card-display">
+    <div class="card">
+        <form method="POST"  enctype = "multipart/form-data">
+            {% csrf_token %}
+            {{ u_form.as_p }}
+            {{ p_form.as_p }}
+            <input class="btn" type="submit" value="Update">
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'workouts/base.html' %}
+{% block content %}
+<div class="detail-one">
+   <form method="POST">
+      {% csrf_token %}
+      <legend>Delete Workout</legend>
+      <h1>Are you sure you want to delete this exercise?</h1>
+      <div class="card-display">
+        <div class="buttons">
+            <div>
+                <input class='btn' type="submit" value="Delete">
+            </div>
+            <div>
+                <button class="btn" type="button"><a href="{% url 'exercises-listview' pk %}">Cancel</a></button>
+            </div>
+    
+        </div>
+     </div>
+   </form>
+</div>
+{% endblock content %}

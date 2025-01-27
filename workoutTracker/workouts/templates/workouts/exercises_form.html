@@ -1,0 +1,58 @@
+{% extends 'workouts/base.html' %}
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="card-display">
+    <a href="{% url 'create-exercise' pk %}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+
+    <div class="card">
+        <!-- {{workout}} -->
+        <!-- <div class="arrow">
+            <a href="#"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        </div> -->
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.name.errors }}
+            {{ form.name.label_tag }} {{ form.name }}
+            <br>
+            
+            {{ form.muscle_groups.errors }}
+            {{ form.muscle_groups.label_tag }} {{ form.muscle_groups }}
+            <br>
+            
+            {{ form.type.errors }}
+            {{ form.type.label_tag }} {{ form.type }}
+            <br>
+            
+            <div id="intensity-div" style="display: none; margin-top: 1rem;">
+                {{ form.intensity.errors }}
+                {{ form.intensity.label_tag }} {{ form.intensity }}
+            </div>
+            <div class="card-display">
+                <input class="btn" type="submit" style="margin-top: 1rem;" value="Add Exercise">
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    // Show/hide intensity field based on the selected type
+    document.addEventListener("DOMContentLoaded", function() {
+      var typeSelect = document.getElementById("id_type");
+      var intensityDiv = document.getElementById("intensity-div");
+    
+      function toggleIntensityField() {
+        if (typeSelect.value === "bw") {
+          intensityDiv.style.display = "block";
+        } else {
+          intensityDiv.style.display = "none";
+        }
+      }
+    
+      // Initial toggle based on default value
+      toggleIntensityField();
+    
+      // Toggle when the type select changes
+      typeSelect.addEventListener("change", toggleIntensityField);
+    });
+</script>
+{% endblock content %}

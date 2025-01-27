@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'workouts/main.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Workout Tracker</title>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <div>
+            <li><a href="{% url 'home-page' %}"><img class="logo" src="/media/logo_example.jpg"></a></li>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="nav-right">
+                <li><a class="logout" href="{% url 'profile' %}">Profile</a></li>
+              
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <li><a><button type="submit">logout</button></a></li>
+                </form>
+            {% else %}
+                <li><a class="logout" href="{% url 'login' %}">Login</a></li>
+            </div>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <nav class="hamburger-nav">
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-links">
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}" onclick="toggleMenu()">Profile</a></li>
+                        <li><a href="{% url 'logout' %}" onclick="toggleMenu()">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}" onclick="toggleMenu()">Login</a></li>
+                    {% endif %}
+                    <li><a href=# onclick="toggleMenu()">About</a></li>
+                    <li><a href=# onclick="toggleMenu()">Demo</a></li>
+                    <li><a href="{% url 'home-page' %}" onclick="toggleMenu()">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <script src="{% static 'workouts/js/script.js' %}"></script>
+</body>
+</html>

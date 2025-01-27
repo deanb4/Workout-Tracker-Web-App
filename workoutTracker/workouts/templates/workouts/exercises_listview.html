@@ -1,0 +1,27 @@
+{% extends 'workouts/base.html' %}
+{% block content %}
+<div class="card-display">
+    <div class="card-one">
+        <p><a href="{% url 'new-base' pk %}" class="links"><i class="fa fa-plus" aria-hidden="true"></i></a></p>
+        <div class="arrow">
+            <a href="{% url 'create-exercise' pk %}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        </div>
+        <div class="card-display">
+            <button class="btn"><a class="links" href="{% url 'new-base' pk %}">Add Exercise</a></button>
+        </div>
+        <div class="icons-hide">
+            {% for i in exercises %}
+            <div class="detail">
+                <div>
+                    <p>{{ i }}</p>
+                </div>
+                <div>
+                    <a href="{% url 'update-three' i.id %}"><i class="fas fa-edit fa-lg" style="color: #738991;"></i></a>
+                    <i class="x-icon"><a id="x-2" href="{% url 'delete-three' i.id %}">&#10006;</a></i>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>    
+</div>
+{% endblock content %}

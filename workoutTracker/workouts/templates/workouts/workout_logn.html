@@ -1,0 +1,54 @@
+{% extends 'workouts/base.html' %}
+{% block content %}
+<div class="card-display">
+    <div class="profile-main">
+        <div class="pagination">
+            <span class="step-links">
+                {% if workouts.has_previous %}
+                    <div class="card-display">
+                        <button class="btn"><a class="links" href="?page={{ workouts.previous_page_number }}">previous</a></button>
+                    </div>
+                {% endif %}
+                {% if workouts.has_next %}
+                    <div class="card-display">
+                        <button class="btn"><a class="links" href="?page={{ workouts.next_page_number }}">next</a></button>
+                    </div>
+                {% endif %}
+            </span>
+        </div>
+        <div class="profile-workout-log">
+            <h1>Workout Log</h1>
+            
+            <form method="GET">
+                <div class="card-display-two">
+                    <input type="text" style="margin-right: 1rem;" name="search-area" placeholder="Search by name or date" >
+                    <button class="search-btn" type="submit" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+            </form>
+            
+            <i class="fa-solid fa-delete-right" style="color: #738991;"></i>
+            {% for i in workouts %}
+                <div class="log-details">
+                    <div>
+                        <p id="profile-p"><a href="{% url 'detailed-view' i.id%}">{{ i }}</a></p>
+                    </div>
+                    <div>
+                        <a href="{% url 'update' i.id %}"><i class="fas fa-edit fa-lg" style="color: #738991;"></i></a>
+                        <i class="x-icon"><a id="x" href="{% url 'delete' i.id %}">&#10006;</a></i>
+                        
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="card-display">
+                <button class="btn"><a class="links" href="{% url 'create-workout' %}">Add Workout</a></button>
+            </div>
+            <br>
+            <div class="card-display">
+                <small>page: {{workouts.number}} of {{ workouts.paginator.num_pages}}</small>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}
+    

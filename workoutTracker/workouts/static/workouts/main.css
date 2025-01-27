@@ -1,0 +1,441 @@
+html {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /* background-image: url('../../media/main_bg.jpeg'); */
+    background: linear-gradient(90deg, rgba(0,0,0), rgb(20, 21, 21), rgb(58, 59, 58));
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 4rem;
+    /* background-color: rgba(0,0,0,0.5); */
+    background: linear-gradient(90deg, rgba(0,0,0), rgb(20, 21, 21), rgb(58, 59, 58));
+}
+
+.nav ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 6rem 5px 6rem;
+    font-size: larger;
+    color: #fafafa;
+}
+
+.nav li {
+    cursor: pointer;
+}
+
+
+.container {
+    margin-top:5rem;
+}
+
+.home-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:#fafafa;
+    padding-top: 7rem;
+}
+
+.card1 {
+    text-align: center;
+}
+
+.logo {
+    width:70px;
+    margin: auto;
+    margin-bottom: 0px;
+    position: relative;
+    top: -1rem;
+    border-radius: 5px;
+}
+
+h1,h3 {
+    color: dimgray;
+    font-size: 40px;
+}
+
+.btn {
+    padding:10px;
+    border-radius: 20px;
+    cursor: pointer;
+    background: rgb(36, 35, 35);
+    /* border: 3px solid rgb(7, 7, 89); */
+    font-size: large;
+    color: dimgray;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: rgb(54, 52, 52);
+}
+
+.hamburger-nav {
+    position: fixed;
+    top: 0.6rem;
+    right:2rem;
+    display: none;
+}
+
+.hamburger-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 24px;
+    width: 30px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 800px ) {
+    .nav {
+        display: none;
+    }
+    
+    .hamburger-nav {
+        display: flex;
+    }
+}
+
+.hamburger-icon span {
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    transition: all 0.3s ease-in-out;
+
+
+}
+
+.menu-links {
+    position: absolute;
+    right:0.5rem;
+    width: fit-content;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.menu-links a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    color: black;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.menu-links a:hover {
+    color:white;
+}
+
+.menu-links ul {
+    list-style: none;
+}
+
+.menu-links.open {
+    max-height: 300px;
+}
+
+.hamburger-icon.open span:first-child {
+    transform: rotate(45deg) translate(10px, 5px);
+}
+.hamburger-icon.open span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-icon.open span:last-child {
+    transform: rotate(-45deg) translate(10px, -5px);
+}
+
+.hamburger-icon span:first-child {
+    transform: none;
+}
+.hamburger-icon span:first-child {
+    opacity: 1;
+}
+.hamburger-icon span:first-child {
+    transform: none;
+}
+
+.scroll-page{
+    height: 100vh;
+   
+}
+
+.pages {
+    margin-top: 1rem;
+}
+
+.scroll-page h1 {
+    padding-top: 4rem;
+}
+
+.profile-img {
+    border-radius: 50%;
+    margin-top: 1rem;
+}
+
+.profile-workout-log {
+    border: 1px solid;
+    margin-top: 1rem;
+    padding: 0 6rem 0 6rem;
+    /* width: 20em; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.profile-main {
+    display: flex;
+    gap: 2em;
+   
+}
+
+/* #profile-p {
+    color: white;
+
+} */
+
+.logout {
+    text-decoration: none;
+    color: white;
+}
+
+input[type=text],
+input[type=password],
+input[type=password],
+textarea {
+    padding: 7px;
+    border: 1px solid;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    /* width: 12rem; */
+}
+label {
+    color:white;
+}
+
+
+.form {
+    display: flex;
+    justify-content: center;
+
+}
+
+.form h1 {
+    text-align: center;
+}
+
+
+p {
+    color: white;
+}
+.log-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* gap: rem; */
+}
+
+
+.log-details a {
+    color: white;
+    text-decoration: none;
+}
+.log-details a:hover, .detail a:hover{
+    font-size: large;
+}
+#x, #x-2{
+    color: #738991;
+    font-size: 20px;
+    text-decoration: none;
+    display: none;
+}
+.nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+#x:hover, #x-2:hover{
+    font-size: 25px;
+}
+.buttons {
+    display: flex;
+    gap: 5rem;
+}
+
+.buttons a {
+    text-decoration: none;
+    color: dimgray;
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* justify-content: center; */
+}
+.detail-one {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.links {
+    color: dimgray;
+    text-decoration: none;
+}
+
+.card{
+    border: 1px solid;
+    margin-top: 1rem;
+    width: 30em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.card-one {
+    border: 1px solid;
+    margin-top: 1rem;
+    width: 30em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.card-display {
+    display: flex;
+    justify-content: center;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background-color: #e0e0e0;
+    margin: 10px 0;    
+}
+
+.card-one h1 {
+    text-align: center;
+}
+small {
+    color: white;
+    gap: 10px;
+}
+
+/* .links:hover {
+    color: white;
+} */
+
+.card-displayt {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.alert {
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.add-icon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: -3.1rem;
+}
+
+.search-btn {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    position: relative;
+    right: 1.3rem;
+    padding:7px;
+    border: 1px solid;
+    cursor: pointer;
+    
+}
+.search-btn:hover {
+    background-color: dimgray
+}
+
+
+.register {
+    display: flex;
+    flex-direction: column;
+}
+
+.fa-arrow-left {
+    color: white;
+}
+
+.arrow {
+   margin-right: 90%;
+}
+
+i.fas {
+    display: none;
+}
+
+.log-details:hover i.fas, .log-details:hover #x{
+    display: inline-block;
+}
+
+
+.detail:hover i.fas , .detail:hover #x-2 {
+    display: inline;
+}
+
+.detail a {
+    text-decoration: none;
+}
+
+.graph {
+    /* background-color: white; */
+    width: 25em;
+    height: 200px;
+}
+
+.profile-graph {
+    display: flex;
+    align-items: center;
+
+}
+
+/* .chart-container {
+    display: none;
+} */
+
+/* .graphs {
+    display: block;
+} */
+
+.card-form label {
+    color:white;
+}
+
+.card4{
+    border: 1px solid;
+    margin-top: 1rem;
+    width: 32em;
+    height: 17em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

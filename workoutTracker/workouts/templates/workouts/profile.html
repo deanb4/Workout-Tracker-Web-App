@@ -1,0 +1,308 @@
+{% extends 'workouts/base.html' %}
+{% block content %}
+<div class="profile-main">
+    <div class="profile-section-one">
+        <div class="card-display">
+            {% for i in profile %}
+                <h1>{{ i|title }}</h1>
+            {% endfor %}
+        </div>
+        <img class="profile-img" src="{{ user.profile.image.url }}">
+        <div class="card-display">
+            <button class="btn" style="margin-top:1rem;"><a class="links" href="{% url 'update-user' %}">Update user info</a></button>
+        </div>
+        <div class="card-display">
+            <button class="btn"  style="margin-top:1rem;"><a class="links" href="{% url 'workout-graph' %}">Progress charts</button>
+        </div>
+    </div>
+    <div class="profile-workout-log">
+    <h1>Workout Log</h1>
+    
+    <form method="GET">
+        <div class="card-display-two">
+            <input type="text" style="margin-right: 1rem;" name="search-area" placeholder="Search by name or date" >
+            <button class="search-btn" type="submit" value="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+    </form>
+    
+    <i class="fa-solid fa-delete-right" style="color: #738991;"></i>
+    {% for i in workouts %}
+        <div class="log-details">
+            <div>
+                <p id="profile-p"><a href="{% url 'detailed-view' i.id%}">{{ i }}</a></p>
+            </div>
+            <div class="edit">
+                <a href="{% url 'update' i.id %}"><i class="fas fa-edit fa-lg" style="color: #738991;"></i></a>
+                <i class="x-icon"><a id="x" href="{% url 'delete' i.id %}">&#10006;</a></i>
+                
+            </div>
+        </div>
+    {% endfor %}
+    <button style="margin-top:1rem;" class="btn"><a class="links" href="{% url 'create-workout' %}">Add Workout</a></button>
+    <button class="btn"><a class="links" href="{% url 'workout-log' %}">Show all</a></button>
+    </div>
+    <div class="profile-graph">
+        <div class="card4">
+            <div class="graph">
+                <script>
+                    // jquery function
+                    
+                        $(document).ready(function(){
+                            let select = document.querySelector('#chartType');
+                            let select1 = document.querySelector('#chartType1');
+                            let chartContainers = document.querySelectorAll('.chart-container');
+                            let weightedContainers = document.querySelectorAll('.weighted-container');
+                            let selectedChart = select.options[0].value;
+
+                            chartContainers.forEach(container => {
+                                let exercise = container.dataset.exercise;
+                                if (exercise === selectedChart) {
+                                    container.style.display = 'block';
+                                } else {
+                                    container.style.display = 'none';
+                                }
+                            });
+
+                            weightedContainers.forEach(container => {
+                                container.style.display = 'none';
+                            });
+
+                            select.addEventListener('change', showHide);
+                            select1.addEventListener('change', showHide);
+
+                            function showHide() {
+                                let selectedChart = select.options[select.selectedIndex].value;
+                                let selectedChart1 = select1.options[select1.selectedIndex].value;
+                                chartContainers.forEach(container => {
+                                    let exercise = container.dataset.exercise;
+                                    if (exercise === selectedChart && selectedChart1 !== 'weighted') {
+                                        container.style.display = 'block';
+                                    } else {
+                                        container.style.display = 'none';
+                                    }
+                                });
+
+                                weightedContainers.forEach(container => {
+                                    container.style.display = 'none';
+                                });
+
+                                if (selectedChart1 === 'weighted') {
+                                    let selectedWeightedChart = document.querySelector(`.weighted-container[data-exercise="${selectedChart}"]`);
+                                    if (selectedWeightedChart) {
+                                        selectedWeightedChart.style.display = 'block';
+                                    }
+                                }
+                            }
+                          
+                            
+                            // let ex =  select.options[select.selectedIndex].value;
+                            // let exerciseType = ex.exercise.type
+                            // if (exerciseType !== "bw") {
+                            //     select1.value = "weighted";
+                            //     select1.style.display = "none";
+                            // }
+    
+                                                                
+                            {% for name, data in max_rep.items %}
+                            var ctx{{forloop.counter}} = document.getElementById('myChart{{forloop.counter}}').getContext('2d');
+                            var myChart{{forloop.counter}} = new Chart(ctx{{forloop.counter}}, {
+                                type: 'line',
+                                data: {
+                                    labels: [  {% for d in data.0 %}
+                                                    '{{ d.workout.date | date:"d M Y"}}',
+                                                {% endfor %}
+                                    
+                            
+                                            ], 
+                                    datasets: [{
+                                        label: '{{name}}',
+                                        data: [
+                                            {% for d in data.0 %}
+                                              
+                                                    {{ d.reps }},
+                                               
+                                            {% endfor %}
+                                           
+                                        
+                                           
+                                        ],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    },
+                                    
+                               
+                                   ]
+                                },
+                                options: {
+                                    tooltip: {
+                                        callbacks: {
+                                          
+                                            label: function(context) {
+                                                return 'Reps: ' + context.parsed.y;
+                                            }
+                                        }
+                                    }
+                                },
+                                                    
+                            
+                         
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+                            
+                              
+                            });
+                            {% endfor %}
+                            
+                            {% for name, data in max_rep.items %}
+                            var weightedCtx{{forloop.counter}} = document.getElementById('weightedChart{{forloop.counter}}').getContext('2d');
+                            var weightedChart{{forloop.counter}} = new Chart(weightedCtx{{forloop.counter}}, {
+                                type: 'line',
+                                data: {
+                                    labels: [  {% for d in data.1 %}
+                                                    '{{ d.workout.date | date:"d M Y"}}',
+                                                {% endfor %}
+                                    
+                            
+                                            ], 
+                                    datasets: [{
+                                        label: '{{name}} Weighted',
+                                        data: [
+                                            {% for d in data.1 %}
+                                              
+                                                    {{ d.reps }},
+                                               
+                                            {% endfor %}
+                                           
+                                        
+                                           
+                                        ],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    },
+                             
+                                    {
+                                        label: 'dd',
+                                        data: [ {% for d in data.1 %}
+                                                
+                                                    {{ d.weight }},
+                                                
+                                        {% endfor %}],
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1,
+                                        pointStyle: 'circle',
+                                        pointRadius: 0,
+                                        tension: 0,
+                                        fill: false,
+                                        showLine: false,
+                                        hidden: true // hide the weighted dataset initially
+                                    }]
+                                },
+                             
+                                options: {
+                                    plugins: {
+                                        legend: {
+                                            // display: true,
+                                            labels: {
+                                                filter: function(item, chart) {
+                                                // Logic to remove a particular legend item goes here
+                                                return !item.text.includes('dd');
+                                            }
+                                            }
+                                        },
+                                        tooltip: {
+                                            callbacks: {
+                                                afterBody: function(context) {
+                                                    var weightInfo = '';
+                                                    var datasetIndex = context[0].datasetIndex; // Get the index of the dataset
+                                                    var dataIndex = context[0].dataIndex; // Get the index of the data point
+
+                                                    if (datasetIndex === 0) { // Check if the dataset index is 0 (the first dataset is bodyweight)
+                                                        var weight = context[0].chart.data.datasets[1].data[dataIndex]; // Access the weight data from the second dataset
+                                                        weightInfo = 'Weight: ' + weight + 'kg';
+                                                    }
+
+                                                    return weightInfo;
+                                                    
+                                                },
+                                                label: function(context) {
+                                                    return 'Reps: ' + context.parsed.y;
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                         
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                },
+                            
+                              
+                            });
+                            {% endfor %}
+                        });
+                        
+                </script>
+                <select id="chartType">
+                    {% for name in exercise_name_list %}
+                    <option value="{{name}}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <select id="chartType1">
+                    <option value="bw">Bodyweight</option>
+                    <option value="weighted">Weighted</option>
+                </select>
+                <!-- Displaying the chart -->
+                <!-- You can also play around with the width and height to increase or decrease the chart size -->
+                {% for name in exercise_name_list %}
+                    <div class="chart-container bodyweight-container" data-exercise="{{name}}">
+                        <canvas id="myChart{{forloop.counter}}" width="250" height="150"></canvas> 
+                    </div>
+                {% endfor %}
+                {% for name in exercise_name_list %}
+                    <div class="chart-container weighted-container" data-exercise="{{name}}" style="display: none;">
+                        <canvas id="weightedChart{{forloop.counter}}" width="250" height="150"></canvas> 
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
+    

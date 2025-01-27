@@ -1,0 +1,20 @@
+{% extends 'workouts/base.html' %}
+{% block content %}
+<div class="scroll-container">
+    <div class="home-main">
+        <h1>Workout Tracker</h1>
+        <!-- <a href="#page-1">page 1</a>
+        <a href="#page-2">page 2</a> -->
+        <button class="btn"><a class="links" href="{% url 'register' %}">Create Account</a></button>
+        <!-- <div class="card1">
+            <h3>Reviews</h4>
+        </div> -->
+    </div>
+    <!-- <div class="scroll-page" id="page-1">
+        <h1>Page 1</h1>
+    </div>
+    <div class="scroll-page" id="page-2">
+        <h1>Page 2</h1>
+    </div> -->
+</div>
+{% endblock content %}
